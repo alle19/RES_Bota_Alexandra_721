@@ -1,17 +1,33 @@
 package org.example;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import org.example.controller.Controller;
+import org.example.model.Astronaut;
+import org.example.model.AstronautStatus;
+import org.example.model.MissionEvent;
+import org.example.model.Supply;
+import org.example.repo.Repo;
+import org.example.service.AstronautService;
+import org.example.service.MissionEventService;
+import org.example.service.SupplyService;
+
 public class Main {
     static void main() {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        IO.println(String.format("Hello and welcome!"));
+        Repo<Astronaut> astronautRepository = new Repo<Astronaut>("/Users/alexandrabota/Documents/RES_Bota_Alexandra_721/src/main/resources/astronauts.json", Astronaut[].class);
+        Repo<Supply> supplyRepository = new Repo<Supply>("/Users/alexandrabota/Documents/RES_Bota_Alexandra_721/src/main/resources/supplies.json", Supply[].class);
+        Repo<MissionEvent> missionEventRepository = new Repo<MissionEvent>("/Users/alexandrabota/Documents/RES_Bota_Alexandra_721/src/main/resources/events.json", MissionEvent[].class);
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            IO.println("i = " + i);
-        }
+        SupplyService supplyService = new SupplyService(supplyRepository);
+        AstronautService astronautService = new AstronautService(astronautRepository);
+        MissionEventService missionEventService = new MissionEventService(missionEventRepository);
+
+        Controller controller = new Controller(supplyService, missionEventService, astronautService);
+
+        controller.showCount();
+        controller.showAstronauts();
+        System.out.println("filtrati:");
+        controller.showFilterAstronauts( "Orion", AstronautStatus.ACTIVE);
+        System.out.println("sortati:");
+        controller.sortAstronauts();
+        controller.write();
     }
-}
+}    
