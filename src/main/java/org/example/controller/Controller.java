@@ -2,6 +2,7 @@ package org.example.controller;
 
 import org.example.model.Astronaut;
 import org.example.model.AstronautStatus;
+import org.example.model.MissionEvent;
 import org.example.service.AstronautService;
 import org.example.service.MissionEventService;
 import org.example.service.SupplyService;
@@ -43,5 +44,10 @@ public class Controller {
 
     public void write(){
         astronautService.write("/Users/alexandrabota/Documents/RES_Bota_Alexandra_721/src/main/resources/result.txt");
+    }
+
+    public void showPoints(){
+        List<MissionEvent> missionEvents = missionEventService.findAll();
+        missionEvents.stream().limit(5).forEach(e -> System.out.println("Event <" + e.getId()+ "> ->" + "raw=<" +e.getBasePoints()+ "> ->computed=" + e.getBasePoints() ));
     }
 }

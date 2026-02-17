@@ -29,5 +29,6 @@ public class Main {
         System.out.println("sortati:");
         controller.sortAstronauts();
         controller.write();
+        controller.showPoints();
     }
 }    
