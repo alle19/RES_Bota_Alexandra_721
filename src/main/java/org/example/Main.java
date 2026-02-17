@@ -26,9 +26,11 @@ public class Main {
         controller.showAstronauts();
         System.out.println("filtrati:");
         controller.showFilterAstronauts( "Orion", AstronautStatus.ACTIVE);
+        System.out.println();
         System.out.println("sortati:");
         controller.sortAstronauts();
         controller.write();
+        System.out.println("ex 5:");
         controller.showPoints();
     }
 }    
